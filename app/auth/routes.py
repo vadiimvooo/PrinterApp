@@ -3,7 +3,7 @@ from flask_login import current_user, login_user, logout_user
 from werkzeug.urls import url_parse
 
 from app.auth import bp
-from app.auth.forms import LoginForm
+from app.auth.forms import LoginForm, RegistrationForm
 from app.models import User
 
 
@@ -31,4 +31,5 @@ def logout():
 
 @bp.route('/register')
 def register():
-    
+    form = RegistrationForm()
+    return render_template('register.html', title='Register', form=form)

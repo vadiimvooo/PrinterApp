@@ -3,13 +3,13 @@
 
 
 {% block content %}
-    <div class="row"> 
+    <div class="row">
         <div class="offset-md-4 col-md-4 mt-4">
-            <h1>Sign In</h1>
+            <h1>Register</h1>
             {{ wtf.quick_form(form) }}
             <br>
             <p>
-                New user? <a href="{{ url_for('auth.register') }}">Register here!</a>
+                Already registered? <a href="{{ url_for('auth.login') }}">Sign in!</a>
             </p>
         </div>
     </div>
