@@ -30,7 +30,6 @@ class Printer(db.Model):
     name = db.Column(db.String(64), index=True, unique=True)
     brand = db.Column(db.String(64), index=True)
     model = db.Column(db.String(64), index=True)
-    num_cartridge = db.Column(db.Integer)
     vendor = db.Column(db.String(64), index=True)
     product_url = db.Column(db.String(120), index=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
@@ -41,7 +40,10 @@ class Printer(db.Model):
 class Cartridge(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     color = db.Column(db.String(64), index=True)
+    brand = db.Column(db.String(64), index=True)
     model = db.Column(db.String(64), index=True)
+    vendor = db.Column(db.String(64), index=True)
     product_url = db.Column(db.String(120), index=True)
+    quantity = db.Column(db.Integer)
     printer_id = db.Column(db.Integer, db.ForeignKey('printer.id'))
     printer = db.relationship('Printer', back_populates='cartridges')
