@@ -9,6 +9,7 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(64), index=True, unique=True)
     email = db.Column(db.String(120), index=True, unique=True)
     password_hash = db.Column(db.String(128))
+    printers = db.relationship('Printer', back_populates='user')
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
@@ -22,3 +23,26 @@ class User(UserMixin, db.Model):
 @login.user_loader
 def load_user(id):
     return User.query.get(int(id))
+
+
+class Printer(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(64), index=True, unique=True)
+    brand = db.Column(db.String(64), index=True)
+    model = db.Column(db.String(64), index=True)
+    vendor = db.Column(db.String(64), index=True)
+    product_url = db.Column(db.String(120), index=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    user = db.relationship('User', back_populates='printers')
+    cartridges = db.relationship('Cartridge', back_populates='printer')
+
+
+class Cartridge(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    color = db.Column(db.String(64), index=True)
+    brand = db.Column(db.String(64), index=True)
+    model = db.Column(db.String(64), index=True)
+    vendor = db.Column(db.String(64), index=True)
+    product_url = db.Column(db.String(120), index=True)
+    printer_id = db.Column(db.Integer, db.ForeignKey('printer.id'))
+    printer = db.relationship('Printer', back_populates='cartridges')
