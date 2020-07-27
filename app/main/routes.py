@@ -7,8 +7,8 @@ from app.main.forms import AddCartridge, RegisterPrinter
 from app.models import User, Printer, Cartridge
 
 
-@bp.route('/')
-@bp.route('/index')
+@bp.route('/', methods=['GET', 'POST'])
+@bp.route('/index', methods=['GET', 'POST'])
 def index():
     return render_template('index.html')
 
@@ -36,5 +36,4 @@ def add_cartridge():
 @login_required
 def user(username):
     user = User.query.filter_by(username=username).first_or_404()
-    printers = user.printers.order_by(Printer.name)
-    return render_template('user.html', user=user, printers=printers.items9)
+    return render_template('user.html', user=user)

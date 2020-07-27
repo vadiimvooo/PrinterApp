@@ -1,0 +1,21 @@
+{% if printer.on_hand <= printer.num_cartridges %}
+    <tr class="table-danger">
+{% else %}
+    <tr>
+{% endif %}
+        <td>
+            {{ printer.name }}
+        </td>
+        <td>
+            {{ printer.brand }}
+        </td>
+        <td>
+            {{ printer.model }}
+        </td>
+        <td>
+            {{ printer.num_cartridges}}
+        </td>
+        <td>
+            {{ printer.on_hand }}
+        </td>
+    </tr>
