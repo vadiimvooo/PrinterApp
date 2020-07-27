@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="row my-2">
+        <div class="col-lg-8 order-lg-2">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a href="" data-target="#profile" data-toggle="tab" class="nav-link a active">Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a href="" data-target="#printers" data-toggle="tab" class="nav-link">Printers</a>
+                </li>
+            </ul>
+            <div class="tab-content py-4">
+                <div class="tab-pane active" id="profile">
+                    <h5>User Profile</h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6>About</h6>
+                            <p>
+                                About the user.
+                            </p>
+                        </div>
+                        <div class="col-md-12">
+                            <h5 class="mt-2">
+                                <span class="fa fa-clock-o ion-clock float-right"></span>
+                                Recent Activity
+                            </h5>
+                            <table class="table table-sm table-hover table-striped">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            Will have to figure out how to implement this at some point.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            It would be nice to display addiing printers, purchasing cartridges, changing cartridges.
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane" id="printers">
+                    <h5>Printers</h5>
+                    <table class="table table-sm table-hover table-striped">
+                        <tbody>
+                            <tr>
+                                <th>Printer Name</th>
+                                <th>Brand</th>
+                                <th>Model</th>
+                            </tr>
+                            <tr>
+                                <th>Example Printer</th>
+                                <th>Example Brand</th>
+                                <th>Example Model</th>
+                            </tr>
+                            <tr>
+                                <th>Second Example</th>
+                                <th>Seconed Brand</th>
+                                <th>Second Model</th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 order-lg-1 text-center">
+            <ul>
+                <li class="text-center"><img class="avatar avatar-128 img-circle img-thumbnail" src="{{ user.avatar(128) }}"/><p>{{ user.username }}</p></li>
+            </ul>
+        </div>
+    </div>

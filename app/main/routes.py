@@ -1,10 +1,10 @@
-from flask import flash, redirect, render_template, url_for
+from flask import flash, redirect, render_template, url_for, current_app
 from flask_login import current_user, login_required
 
 from app import db
 from app.main import bp
 from app.main.forms import AddCartridge, RegisterPrinter
-from app.models import Printer, Cartridge
+from app.models import User, Printer, Cartridge
 
 
 @bp.route('/')
@@ -31,3 +31,10 @@ def add_printer():
 @bp.route('/add_cartridge')
 def add_cartridge():
     return render_template('add_cartridge.html')
+
+@bp.route('/user/<username>')
+@login_required
+def user(username):
+    user = User.query.filter_by(username=username).first_or_404()
+    printers = user.printers.order_by(Printer.name)
+    return render_template('user.html', user=user, printers=printers.items9)
