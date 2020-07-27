@@ -12,7 +12,7 @@ from app.models import Printer, Cartridge
 def index():
     return render_template('index.html')
 
-@bp.route('/add_printer')
+@bp.route('/add_printer', methods=['POST'])
 @login_required
 def add_printer():
     form = RegisterPrinter()
