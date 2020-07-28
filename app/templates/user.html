@@ -15,11 +15,11 @@
                             <th>Brand</th>
                             <th>Model</th>
                             <th>Cartridges</th>
-                            <th>Cart. On Hand</th>
+                            <th>On Hand</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for printer in printers %}
+                        {% for printer in current_user.printers %}
                             {% include '_printer.html' %}
                         {% endfor %}
                     </tbody>

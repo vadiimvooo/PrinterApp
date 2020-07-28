@@ -1,4 +1,4 @@
-{% if printer.on_hand <= printer.num_cartridges %}
+{% if printer.cart_on_hand <= printer.num_cartridges %}
     <tr class="table-danger">
 {% else %}
     <tr>
@@ -16,6 +16,6 @@
             {{ printer.num_cartridges}}
         </td>
         <td>
-            {{ printer.on_hand }}
+            {{ printer.cart_on_hand }}
         </td>
     </tr>

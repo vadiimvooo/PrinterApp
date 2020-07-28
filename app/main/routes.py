@@ -12,7 +12,7 @@ from app.models import User, Printer, Cartridge
 def index():
     return render_template('index.html')
 
-@bp.route('/add_printer', methods=['POST'])
+@bp.route('/add_printer', methods=['GET', 'POST'])
 @login_required
 def add_printer():
     form = RegisterPrinter()
@@ -20,8 +20,11 @@ def add_printer():
         printer = Printer(name=form.name.data, 
                         brand=form.brand.data,
                         model=form.model.data,
+                        num_cartridges=form.num_cartridges.data,
+                        cart_on_hand=form.cart_on_hand.data,
                         vendor=form.vendor.data,
-                        product_url=form.product_url.data)
+                        product_url=form.product_url.data,
+                        user=current_user)
         db.session.add(printer)
         db.session.commit()
         flash('You have added {}!'.format(printer.name))
