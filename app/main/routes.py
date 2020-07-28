@@ -31,12 +31,21 @@ def add_printer():
         return redirect(url_for('main.index'))
     return render_template('add_printer.html', title='Add Printer', form=form)
 
+
 @bp.route('/add_cartridge')
 def add_cartridge():
     return render_template('add_cartridge.html')
+
 
 @bp.route('/user/<username>')
 @login_required
 def user(username):
     user = User.query.filter_by(username=username).first_or_404()
     return render_template('user.html', user=user)
+
+
+@bp.route('/printer/<printer_name>')
+@login_required
+def printer(printer_name):
+    printer = Printer.query.filter_by(name=printer_name).first_or_404()
+    return render_template('printer.html', printer=printer)
