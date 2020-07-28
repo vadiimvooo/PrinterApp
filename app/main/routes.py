@@ -32,11 +32,6 @@ def add_printer():
     return render_template('add_printer.html', title='Add Printer', form=form)
 
 
-@bp.route('/add_cartridge')
-def add_cartridge():
-    return render_template('add_cartridge.html')
-
-
 @bp.route('/user/<username>')
 @login_required
 def user(username):
@@ -44,8 +39,15 @@ def user(username):
     return render_template('user.html', user=user)
 
 
-@bp.route('/printer/<printer_name>')
+@bp.route('/printer/<printer_id>')
 @login_required
-def printer(printer_name):
-    printer = Printer.query.filter_by(name=printer_name).first_or_404()
+def printer(printer_id):
+    printer = Printer.query.filter_by(id=printer_id).first_or_404()
     return render_template('printer.html', printer=printer)
+
+
+@bp.route('/printer/<printer_id>/add_cartridge')
+@login_required
+def add_cartridge(printer_id):
+    form = AddCartridge()
+    return render_template('add_cartridge.html', form=form)
