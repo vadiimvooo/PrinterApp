@@ -16,7 +16,10 @@ class RegisterPrinter(FlaskForm):
     submit = SubmitField('Register Printer')
 
 class AddCartridge(FlaskForm):
-    color = StringField('Color', validators=[DataRequired()])
-    model = StringField('Model')
+    color = StringField('Color *', validators=[DataRequired()])
+    brand = StringField('Brand *', validators=[DataRequired()])
+    model = StringField('Model *', validators=[DataRequired()])
+    vendor = StringField('Vendor')
     product_url = StringField('Product URL')
-    quantity = IntegerField('Quantity', validators=[DataRequired()])
+    quantity = IntegerField('Starting Quantity *', validators=[DataRequired()], render_kw={"placeholder": "How many extra cartridges do you have?"})
+    submit = SubmitField('Add Cartridge')

@@ -46,8 +46,20 @@ def printer(printer_id):
     return render_template('printer.html', printer=printer)
 
 
-@bp.route('/printer/<printer_id>/add_cartridge')
+@bp.route('/printer/<printer_id>/add_cartridge', methods=["GET", "POST"])
 @login_required
 def add_cartridge(printer_id):
     form = AddCartridge()
+    if form.validate_on_submit():
+        cartridge = Cartridge(color=form.color.data,
+                            brand=form.brand.data,
+                            model=form.brand.data,
+                            vendor=form.brand.data,
+                            product_url=form.product_url.data,
+                            quantity=form.quantity.data,
+                            printer_id=printer_id)
+        db.session.add(cartridge)
+        db.session.commit()
+        flash("You have added a new cartridge!")
+        return redirect(url_for('main.printer', printer_id=printer_id))
     return render_template('add_cartridge.html', form=form)
