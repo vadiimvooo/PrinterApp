@@ -4,7 +4,7 @@
     <tr>
 {% endif %}
         <td>
-            <a href="{{ url_for('main.add_cartridge', printer_id=printer.id) }}" class="text-dark">{{ printer.name }}</a>
+            <a href="{{ url_for('main.printer', printer_id=printer.id) }}" class="text-dark">{{ printer.name }}</a>
         </td>
         <td>
             {{ printer.brand }}
