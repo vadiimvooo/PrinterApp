@@ -1,1 +1,39 @@
 {% extends 'base.html' %}
+{% block styles %}
+    {{super()}}
+    <link rel="stylesheet"
+        href="{{url_for('static', filename='index.css')}}">
+{% endblock %}
+
+{% block app_content %}
+    <div class="row">
+        <div class="col-md-6 d-none d-md-block mt-4 mb-4">
+            <img src="static/printer-app-logo.png" class="img-fluid" style="max-width:  100% height: auto">
+        </div>
+        <div class="col-md-6 d-none d-md-block mt-5 mb-5">
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <div class="text-light">
+                <h3>Keep track of your printer ink</h3>
+                <h3>and never run out again.</h3>
+            </div>
+            <br>
+            <br>
+            <a class="btn btn-info btn-lg btn-block mt-4" href="{{ url_for('auth.register') }}">
+                Register
+            </a>
+            <a class="btn btn-outline-info btn-lg btn-block mt-3" href="{{ url_for('auth.login') }}">
+                Login
+            </a>
+        </div>
+    </div>
+{% endblock %}

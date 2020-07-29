@@ -1,0 +1,6 @@
+body {
+    background: black;
+    max-width: 100%;
+    overflow-x: hidden;
+    background: linear-gradient(90deg, #d741a7 10%, #3a1772 20%, #5398be 30%, #f2cd5d 40%, #dea54b 50%, #000000 50%);
+}

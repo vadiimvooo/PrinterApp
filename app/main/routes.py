@@ -10,6 +10,8 @@ from app.models import User, Printer, Cartridge
 @bp.route('/', methods=['GET', 'POST'])
 @bp.route('/index', methods=['GET', 'POST'])
 def index():
+    if current_user.is_authenticated:
+        return redirect(url_for('main.user', username=current_user.username))
     return render_template('index.html')
 
 @bp.route('/add_printer', methods=['GET', 'POST'])
