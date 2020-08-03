@@ -1,3 +1,4 @@
+from datetime import datetime
 from flask_login import UserMixin
 from hashlib import md5
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -42,6 +43,7 @@ class Printer(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     user = db.relationship('User', back_populates='printers')
     cartridges = db.relationship('Cartridge', back_populates='printer')
+    creation_timestamp = db.Column(db.DateTime, default=datetime.utcnow)
 
     def __repr__(self):
         return '<Printer {}>'.format(self.name)
