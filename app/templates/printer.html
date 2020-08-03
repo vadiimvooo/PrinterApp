@@ -1,5 +1,14 @@
 {% extends 'base.html' %}
 
 {% block app_content %}
-    
+    <div class="row">
+        <div class="col-md-4 mx-md-2">
+            <div class="card">
+                <img class="car-img-top img-fluid img-thumbnail" src="/static/no-img.png" alt="Printer card image." style="max-width: 100%; height: auto;">
+                <div class="card-body">
+                    <h5>{{ printer.name }}</h5>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
