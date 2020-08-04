@@ -57,6 +57,9 @@ def printer(printer_id):
 @bp.route('/printer/<printer_id>/add_cartridge', methods=["GET", "POST"])
 @login_required
 def add_cartridge(printer_id):
+    printer = Printer.query.filter_by(id=printer_id).first_or_404()
+    if current_user != printer.user:
+        return redirect(url_for('main.printer', printer_id=printer_id))
     form = AddCartridge()
     if form.validate_on_submit():
         cartridge = Cartridge(color=form.color.data,

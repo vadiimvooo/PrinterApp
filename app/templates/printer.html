@@ -33,8 +33,10 @@
                         {% endfor %}
                     </tbody>
                 </table>
-                <a href="{{ url_for('main.add_cartridge', printer_id=printer.id) }}" class="btn btn-primary">New Cartridge</a>
-            </div>
+                {% if current_user == printer.user %}
+                    <a href="{{ url_for('main.add_cartridge', printer_id=printer.id) }}" class="btn btn-primary">New Cartridge</a>
+                {% endif %}
+                </div>
         </div>
     </div>
 {% endblock %}
