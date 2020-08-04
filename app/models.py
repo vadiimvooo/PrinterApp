@@ -40,10 +40,11 @@ class Printer(db.Model):
     num_cartridges = db.Column(db.Integer)
     cart_on_hand = db.Column(db.Integer)
     product_url = db.Column(db.String(120), index=True)
+    creation_timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     user = db.relationship('User', back_populates='printers')
     cartridges = db.relationship('Cartridge', back_populates='printer')
-    creation_timestamp = db.Column(db.DateTime, default=datetime.utcnow)
+    
 
     def __repr__(self):
         return '<Printer {}>'.format(self.name)

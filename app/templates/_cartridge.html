@@ -1,0 +1,24 @@
+{% if cartridge.quantity <= 1 %}
+    <tr class="table-danger">
+{% else %}
+    <tr>
+{% endif %}
+        <td>
+            {{cartridge.color}}
+        </td>
+        <td>
+            {{ caartridge.brand }}
+        </td>
+        <td>
+            {{ cartridge.model }}
+        </td>
+        <td>
+            {{ cartridge.quantity}}
+        </td>
+        <td>
+            {{ cartridge.vendor }}
+        </td>
+        <td>
+            {{ cartridge.product_url }}
+        </td>
+    </tr>

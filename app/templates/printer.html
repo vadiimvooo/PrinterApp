@@ -1,13 +1,39 @@
 {% extends 'base.html' %}
 
 {% block app_content %}
-    <div class="row">
-        <div class="col-md-4 mx-md-2">
+    <div class="row my-4">
+        <div class="col-lg-2 order-lg-1 ml-5">
             <div class="card">
-                <img class="car-img-top img-fluid img-thumbnail" src="/static/no-img.png" alt="Printer card image." style="max-width: 100%; height: auto;">
+                <img class="avatar avatar-180 img-thumbnail" src="/static/no-img.png" alt="Printer card image." style="max-width: 100%; height: auto;">
                 <div class="card-body">
                     <h5>{{ printer.name }}</h5>
+                    <h6>Date Created:</h6> 
+                    <p>{{ moment(printer.creation_timestamp).format('LL')  }}</p>
+                    <button type="button" class="btn btn-primary">Edit Printer</button>
                 </div>
+            </div>
+        </div>
+        <div class="col-lg-8 order-lg-2">
+            <div class="">
+                <h3>Cartridges</h3>
+                <table class="table table-hover table-striped table-bordered bg-light">
+                    <thead>
+                        <tr>
+                            <th>Color</th>
+                            <th>Brand</th>
+                            <th>Model</th>
+                            <th>Quantity</th>
+                            <th>Vendor</th>
+                            <th>Product URL</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for cartridge in printer.cartridges %}
+                            {% include '_cartridge.html' %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <a href="">New Cartridge</a>
             </div>
         </div>
     </div>

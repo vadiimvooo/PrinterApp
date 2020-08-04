@@ -4,9 +4,10 @@
     <div class="row my-4">
         <div class="col-lg-2 order-lg-1 ml-5 text-center">
             <div class="card">
-                <img class="avatar avatar-180 img-circle img-thumbnail" src="{{ user.avatar(180) }}"/>
-                <br>
-                <p>User: {{ user.username }}</p>
+                <img class="avatar avatar-180 img-thumbnail" src="{{ user.avatar(180) }}"/>
+                <div class="card-body">
+                    <h5>{{ user.username }}</h5>
+                </div>
             </div>
         </div>
         <div class="col-lg-8 order-lg-2">
@@ -28,6 +29,8 @@
                         {% endfor %}
                     </tbody>
                 </table>
+                <a href="{{ url_for('main.add_printer') }}">New Printer</a>
             </div>
         </div>
+    </div>
 {% endblock %}
