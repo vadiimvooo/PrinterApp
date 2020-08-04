@@ -11,8 +11,14 @@ from app.models import User, Printer, Cartridge
 @bp.route('/index', methods=['GET', 'POST'])
 def index():
     if current_user.is_authenticated:
-        return redirect(url_for('main.user', username=current_user.username))
+        return redirect(url_for('main.activity_feed'))
     return render_template('index.html')
+
+
+@bp.route('/activity_feed', methods=['GET', 'POST'])
+@login_required
+def activity_feed():
+    return render_template('activity_feed.html')
 
 @bp.route('/add_printer', methods=['GET', 'POST'])
 @login_required
@@ -55,8 +61,8 @@ def add_cartridge(printer_id):
     if form.validate_on_submit():
         cartridge = Cartridge(color=form.color.data,
                             brand=form.brand.data,
-                            model=form.brand.data,
-                            vendor=form.brand.data,
+                            model=form.model.data,
+                            vendor=form.vendor .data,
                             product_url=form.product_url.data,
                             quantity=form.quantity.data,
                             printer_id=printer_id)

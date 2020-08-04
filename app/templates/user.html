@@ -2,12 +2,12 @@
 
 {% block app_content %}
     <div class="row my-4">
-        <div class="col-lg-2 order-lg-1 ml-5 text-center">
+        <div class="col-lg-2 order-lg-1 ml-5">
             <div class="card">
                 <img class="avatar avatar-180 img-thumbnail" src="{{ user.avatar(180) }}"/>
                 <div class="card-body">
                     <h5>{{ user.username }}</h5>
-                    <h6>User Settings Here</h6>
+                    <a href="" class="btn btn-primary">Settings</a>
                 </div>
             </div>
         </div>
@@ -30,7 +30,7 @@
                         {% endfor %}
                     </tbody>
                 </table>
-                <a href="{{ url_for('main.add_printer') }}">New Printer</a>
+                <a href="{{ url_for('main.add_printer') }}" class="btn btn-primary">New Printer</a>
             </div>
         </div>
     </div>

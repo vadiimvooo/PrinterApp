@@ -33,7 +33,7 @@
                         {% endfor %}
                     </tbody>
                 </table>
-                <a href="">New Cartridge</a>
+                <a href="{{ url_for('main.add_cartridge', printer_id=printer.id) }}" class="btn btn-primary">New Cartridge</a>
             </div>
         </div>
     </div>
