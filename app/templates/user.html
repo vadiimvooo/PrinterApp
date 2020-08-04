@@ -30,7 +30,9 @@
                         {% endfor %}
                     </tbody>
                 </table>
-                <a href="{{ url_for('main.add_printer') }}" class="btn btn-primary">New Printer</a>
+                {% if current_user == user %}
+                    <a href="{{ url_for('main.add_printer') }}" class="btn btn-primary">New Printer</a>
+                {% endif %}
             </div>
         </div>
     </div>
