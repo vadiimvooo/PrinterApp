@@ -25,7 +25,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for printer in current_user.printers %}
+                        {% for printer in user.printers %}
                             {% include '_printer.html' %}
                         {% endfor %}
                     </tbody>
