@@ -18,11 +18,9 @@ def index():
 @bp.route('/activity_feed', methods=['GET', 'POST'])
 @login_required
 def activity_feed():
-    events = Event.query.filter_by(
-        user_id='current_user.id'
-        ).order_by(
-            Event.creation_timestamp.desc()
-            ).all()
+    events = Event.query.filter(
+        Event.user_id == current_user.id).order_by(
+            Event.creation_timestamp.desc())
     return render_template('activity_feed.html', events=events)
 
 
