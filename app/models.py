@@ -47,7 +47,7 @@ class Printer(TimestampMixin, db.Model):
     model = db.Column(db.String(64), index=True)
     vendor = db.Column(db.String(64), index=True)
     num_cartridges = db.Column(db.Integer)
-    cart_on_hand = db.Column(db.Integer)
+    cart_on_hand = db.Column(db.Integer, default=0)
     product_url = db.Column(db.String(120), index=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     user = db.relationship('User', back_populates='printers')

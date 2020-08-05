@@ -1,9 +1,11 @@
-<table class="table table-hover">
-    {% if event.event_type == 'Create printer' %}
-        <td>
-            {{ moment(event.creation_timestamp).format('LL') }}
-            <br>
-            {{ 'Added new printer, {}.'.format(event.printer.name)}}
-        </td>
-    {% endif %}
+<table class="table table-hover table-bordered bg-light">
+    <td>
+        <b>{{ moment(event.creation_timestamp).format('LL') }}</b>
+        <br>
+        {% if event.event_type == "create printer" %}
+            <p>{{ 'Added new printer, {}.'.format(event.printer.name)}}</p>
+        {% elif event.event_type == "create cartridge" %}
+            <p>{{ 'Added new cartridge, {}, to printer {}.'.format(event.cartridge.name, event.printer.name) }}</p>
+        {% endif %}
+    </td>
 </table>

@@ -4,7 +4,7 @@
     <div class="col-md-8 text-center mt-4">
         <h1>Welcome back {{ current_user.username }}!</h1>
     </div>
-    {% for event in events %}
+    {% for event in current_user.events %}
         {% include "_event.html" %}
     {% endfor %}
 {% endblock %}

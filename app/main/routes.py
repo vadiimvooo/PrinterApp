@@ -35,13 +35,12 @@ def add_printer():
                           brand=form.brand.data,
                           model=form.model.data,
                           num_cartridges=form.num_cartridges.data,
-                          cart_on_hand=form.cart_on_hand.data,
                           vendor=form.vendor.data,
                           product_url=form.product_url.data,
                           user=current_user)
         db.session.add(printer)
         db.session.commit()
-        event = Event(event_type='Create printer',
+        event = Event(event_type='create printer',
                       object_type='Printer',
                       printer_id=printer.id,
                       user=current_user)
@@ -82,6 +81,15 @@ def add_cartridge(printer_id):
                               quantity=form.quantity.data,
                               printer_id=printer_id)
         db.session.add(cartridge)
+        db.session.commit()
+        event = Event(event_type='create cartridge',
+                      object_type='cartridge',
+                      cartridge_id=cartridge.id,
+                      user=current_user,
+                      printer_id=cartridge.printer_id)
+        db.session.add(event)
+        db.session.commit()
+        cartridge.printer.cart_on_hand += cartridge.quantity
         db.session.commit()
         flash("New cartridge added successfully.")
         return redirect(url_for('main.printer', printer_id=printer_id))
