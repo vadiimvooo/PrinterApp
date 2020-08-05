@@ -4,7 +4,7 @@ from flask_login import current_user, login_required
 from app import db
 from app.main import bp
 from app.main.forms import AddCartridge, RegisterPrinter
-from app.models import User, Printer, Cartridge
+from app.models import User, Printer, Cartridge, Event
 
 
 @bp.route('/', methods=['GET', 'POST'])
@@ -34,7 +34,12 @@ def add_printer():
                           vendor=form.vendor.data,
                           product_url=form.product_url.data,
                           user=current_user)
+        event = Event(event_type='Create printer',
+                      object_type='Printer',
+                      printer_id=printer.id,
+                      user=current_user)
         db.session.add(printer)
+        db.session.add(event)
         db.session.commit()
         flash('New printer added successfully.')
         return redirect(url_for('main.index'))

@@ -16,8 +16,8 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(64), index=True, unique=True)
     email = db.Column(db.String(120), index=True, unique=True)
     password_hash = db.Column(db.String(128))
-    printer = db.relationship('Printer', back_populates='user')
-    event = db.relationship('Event', back_populates='user')
+    printers = db.relationship('Printer', back_populates='user')
+    events = db.relationship('Event', back_populates='user')
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
@@ -50,9 +50,9 @@ class Printer(TimestampMixin, db.Model):
     cart_on_hand = db.Column(db.Integer)
     product_url = db.Column(db.String(120), index=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    user = db.relationship('User', back_populates='printer')
-    cartridge = db.relationship('Cartridge', back_populates='printer')
-    event = db.relationship('Event', back_populates='printer')
+    user = db.relationship('User', back_populates='printers')
+    cartridges = db.relationship('Cartridge', back_populates='printer')
+    events = db.relationship('Event', back_populates='printer')
 
     def __repr__(self):
         return '<Printer {}>'.format(self.name)
@@ -67,8 +67,8 @@ class Cartridge(TimestampMixin, db.Model):
     product_url = db.Column(db.String(120), index=True)
     quantity = db.Column(db.Integer)
     printer_id = db.Column(db.Integer, db.ForeignKey('printer.id'))
-    printer = db.relationship('Printer', back_populates='cartridge')
-    event = db.relationship('Event', back_populates='cartridge')
+    printer = db.relationship('Printer', back_populates='cartridges')
+    events = db.relationship('Event', back_populates='cartridge')
 
 
 class Event(db.Model):
