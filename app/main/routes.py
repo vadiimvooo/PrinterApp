@@ -25,7 +25,7 @@ def activity_feed():
 def add_printer():
     form = RegisterPrinter()
     if form.validate_on_submit():
-        printer = Printer(name=form.name.data, 
+        printer = Printer(name=form.name.data,
                         brand=form.brand.data,
                         model=form.model.data,
                         num_cartridges=form.num_cartridges.data,

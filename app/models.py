@@ -44,7 +44,7 @@ class Printer(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     user = db.relationship('User', back_populates='printers')
     cartridges = db.relationship('Cartridge', back_populates='printer')
-    
+
 
     def __repr__(self):
         return '<Printer {}>'.format(self.name)
