@@ -71,7 +71,7 @@ class Cartridge(TimestampMixin, db.Model):
     events = db.relationship('Event', back_populates='cartridge')
 
 
-class Event(db.Model):
+class Event(TimestampMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     event_type = db.Column(db.String(64), index=True)
     event_details = db.Column(db.String(255))
