@@ -3,6 +3,12 @@
     {{super()}}
     <link rel="stylesheet"
         href="{{url_for('static', filename='style.css')}}">
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+    <style>
+        .audiowide {
+            font-family: 'Audiowide'
+        }
+    </style>
 {% endblock %}
 
 
@@ -17,7 +23,9 @@
 
 {% block navbar %}
     <nav class="navbar navbar-expand-lg navbar-fixed-top navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">Printer App</a>
+        <a class="navbar-brand audiowide" href="#">
+            <img src="static/printer-app-logo.png" width="50" height="50" alt=""> Printer App
+        </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
