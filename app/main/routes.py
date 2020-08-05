@@ -92,3 +92,25 @@ def add_cartridge(printer_id):
         flash("New cartridge added successfully.")
         return redirect(url_for('main.printer', printer_id=printer_id))
     return render_template('add_cartridge.html', form=form)
+
+
+@bp.route('/printer/<printer_id>/delete', methods=['GET', 'POST'])
+def delete_printer():
+    pass
+
+
+@bp.route('/printer/<printer_id>/edit', methods=['GET', 'POST'])
+def edit_printer():
+    pass
+
+
+@bp.route('/printer/<printer_id>/cartridge/<cartridge_id>/delete',
+          methods=['GET', 'POST'])
+def delete_cartridge():
+    pass
+
+
+@bp.route('/printer/<printer_id>/cartridge/<cartridge_id>/edit',
+          methods=['GET', 'POST'])
+def edit_cartridge():
+    pass
