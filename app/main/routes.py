@@ -34,11 +34,12 @@ def add_printer():
                           vendor=form.vendor.data,
                           product_url=form.product_url.data,
                           user=current_user)
+        db.session.add(printer)
+        db.session.commit()
         event = Event(event_type='Create printer',
                       object_type='Printer',
                       printer_id=printer.id,
                       user=current_user)
-        db.session.add(printer)
         db.session.add(event)
         db.session.commit()
         flash('New printer added successfully.')
