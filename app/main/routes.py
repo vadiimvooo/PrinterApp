@@ -4,7 +4,7 @@ from flask_login import current_user, login_required
 from app import db
 from app.main import bp
 from app.main.forms import AddCartridge, RegisterPrinter
-from app.models import User, Printer, Cartridge
+from app.models import User, Printer, Cartridge, Event
 
 
 @bp.route('/', methods=['GET', 'POST'])
@@ -18,7 +18,10 @@ def index():
 @bp.route('/activity_feed', methods=['GET', 'POST'])
 @login_required
 def activity_feed():
-    return render_template('activity_feed.html')
+    events = Event.query.filter(
+        Event.user_id == current_user.id).order_by(
+            Event.creation_timestamp.desc())
+    return render_template('activity_feed.html', events=events)
 
 
 @bp.route('/add_printer', methods=['GET', 'POST'])
@@ -30,11 +33,16 @@ def add_printer():
                           brand=form.brand.data,
                           model=form.model.data,
                           num_cartridges=form.num_cartridges.data,
-                          cart_on_hand=form.cart_on_hand.data,
                           vendor=form.vendor.data,
                           product_url=form.product_url.data,
                           user=current_user)
         db.session.add(printer)
+        db.session.commit()
+        event = Event(event_type='create printer',
+                      object_type='Printer',
+                      printer_id=printer.id,
+                      user=current_user)
+        db.session.add(event)
         db.session.commit()
         flash('New printer added successfully.')
         return redirect(url_for('main.index'))
@@ -71,6 +79,15 @@ def add_cartridge(printer_id):
                               quantity=form.quantity.data,
                               printer_id=printer_id)
         db.session.add(cartridge)
+        db.session.commit()
+        event = Event(event_type='create cartridge',
+                      object_type='cartridge',
+                      cartridge_id=cartridge.id,
+                      user=current_user,
+                      printer_id=cartridge.printer_id)
+        db.session.add(event)
+        db.session.commit()
+        cartridge.printer.cart_on_hand += cartridge.quantity
         db.session.commit()
         flash("New cartridge added successfully.")
         return redirect(url_for('main.printer', printer_id=printer_id))

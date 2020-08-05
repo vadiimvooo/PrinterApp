@@ -1,7 +1,18 @@
 {% extends 'base.html' %}
+{% block styles %}
+    {{super()}}
+    <link rel="stylesheet"
+        href="{{url_for('static', filename='activity_feed.css')}}">
+{% endblock %}
 
 {% block app_content %}
     <div class="col-md-8 text-center mt-4">
-        <h1>Welcome back {{ current_user.username }}!</h1>
+        <h1 class="text-light">{{ current_user.username }}'s Activity Feed</h1>
+    </div>
+    <div class="col-md-8 offset-md-2 mt-4 mb-5">
+        {% for event in events %}
+            {% include "_event.html" %}
+        {% endfor %}
     </div>
 {% endblock %}
+

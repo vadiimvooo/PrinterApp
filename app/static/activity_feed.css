@@ -1,0 +1,14 @@
+body {
+    background: black;
+    max-width: 100%;
+    overflow-x: hidden;
+    background: linear-gradient(90deg, #d741a7 10%, #3a1772 40%, #5398be 60%, #f2cd5d 90%, #dea54b 100%);
+}
+
+.panel-footer {
+    position: relative;
+    left: 0px;
+    bottom: 0px;
+    height: 50px;
+    width: 100%;
+}

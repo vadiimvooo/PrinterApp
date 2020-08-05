@@ -1,5 +1,7 @@
-{% if printer.cart_on_hand <= printer.num_cartridges %}
-    <tr class="table-danger">
+{% if printer.cart_on_hand != None %}
+    {% if printer.cart_on_hand <= printer.num_cartridges %}
+        <tr class="table-danger">
+    {% endif %}
 {% else %}
     <tr>
 {% endif %}

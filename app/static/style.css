@@ -3,3 +3,11 @@ body {
     max-width: 100%;
     overflow-x: hidden;
 }
+
+.panel-footer {
+    position: fixed;
+    left: 0px;
+    bottom: 0px;
+    height: 50px;
+    width: 100%;
+}
