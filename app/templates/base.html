@@ -54,7 +54,7 @@
 
 {% block content %}
 
-    <div class="container">
+    <div class="container row-justify-content-center">
         {% with messages = get_flashed_messages() %}
             {% if messages %}
                 {% for message in messages %}
@@ -70,11 +70,12 @@
     {% endblock %}
 
     {% block footer %}
-        <br>
-        <div class="row">
-            <div class="col-md-12 bg-dark text-light fixed-bottom mt-0" style="height: 5%">
-                <a href="#">About Me</a>
-            </div>
+        <div class="panel-footer">
+            <footer id="sticky-footer" class="py-4 bg-dark text-light">
+                <div class="container text-left align bottom">
+                    <small>Contact me at crandquist@gmail.com for questions or comments.</small>
+                </div>
+            </footer>
         </div>
     {% endblock %}
 
