@@ -13,6 +13,7 @@ login = LoginManager()
 migrate = Migrate()
 moment = Moment()
 
+
 def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
@@ -30,5 +31,6 @@ def create_app():
     app.register_blueprint(main_bp)
 
     return app
+
 
 from app import models

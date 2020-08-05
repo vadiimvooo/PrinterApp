@@ -6,6 +6,10 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from app import db, login
 
 
+# class TimestampMixin(db.Model):
+# creation_timestamp = db.Column(db.DateTime, default=datetime.utcnow) #
+
+
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
@@ -24,7 +28,10 @@ class User(UserMixin, db.Model):
 
     def avatar(self, size):
         digest = md5(self.email.lower().encode('utf-8')).hexdigest()
-        return 'https://www.gravatar.com/avatar/{}?d=identicon&s={}'.format(digest, size)
+        return 'https://www.gravatar.com/avatar/{}?d=identicon&s={}'.format(
+            digest, size
+            )
+
 
 @login.user_loader
 def load_user(id):
@@ -40,11 +47,13 @@ class Printer(db.Model):
     num_cartridges = db.Column(db.Integer)
     cart_on_hand = db.Column(db.Integer)
     product_url = db.Column(db.String(120), index=True)
-    creation_timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    creation_timestamp = db.Column(db.DateTime,
+                                   index=True,
+                                   default=datetime.utcnow
+                                   )
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     user = db.relationship('User', back_populates='printers')
     cartridges = db.relationship('Cartridge', back_populates='printer')
-
 
     def __repr__(self):
         return '<Printer {}>'.format(self.name)

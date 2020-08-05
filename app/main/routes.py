@@ -1,4 +1,4 @@
-from flask import flash, redirect, render_template, url_for, current_app
+from flask import flash, redirect, render_template, url_for
 from flask_login import current_user, login_required
 
 from app import db
@@ -20,22 +20,23 @@ def index():
 def activity_feed():
     return render_template('activity_feed.html')
 
+
 @bp.route('/add_printer', methods=['GET', 'POST'])
 @login_required
 def add_printer():
     form = RegisterPrinter()
     if form.validate_on_submit():
         printer = Printer(name=form.name.data,
-                        brand=form.brand.data,
-                        model=form.model.data,
-                        num_cartridges=form.num_cartridges.data,
-                        cart_on_hand=form.cart_on_hand.data,
-                        vendor=form.vendor.data,
-                        product_url=form.product_url.data,
-                        user=current_user)
+                          brand=form.brand.data,
+                          model=form.model.data,
+                          num_cartridges=form.num_cartridges.data,
+                          cart_on_hand=form.cart_on_hand.data,
+                          vendor=form.vendor.data,
+                          product_url=form.product_url.data,
+                          user=current_user)
         db.session.add(printer)
         db.session.commit()
-        flash('You have added {}!'.format(printer.name))
+        flash('New printer added successfully.')
         return redirect(url_for('main.index'))
     return render_template('add_printer.html', title='Add Printer', form=form)
 
@@ -63,14 +64,14 @@ def add_cartridge(printer_id):
     form = AddCartridge()
     if form.validate_on_submit():
         cartridge = Cartridge(color=form.color.data,
-                            brand=form.brand.data,
-                            model=form.model.data,
-                            vendor=form.vendor .data,
-                            product_url=form.product_url.data,
-                            quantity=form.quantity.data,
-                            printer_id=printer_id)
+                              brand=form.brand.data,
+                              model=form.model.data,
+                              vendor=form.vendor .data,
+                              product_url=form.product_url.data,
+                              quantity=form.quantity.data,
+                              printer_id=printer_id)
         db.session.add(cartridge)
         db.session.commit()
-        flash("You have added a new cartridge!")
+        flash("New cartridge added successfully.")
         return redirect(url_for('main.printer', printer_id=printer_id))
     return render_template('add_cartridge.html', form=form)
