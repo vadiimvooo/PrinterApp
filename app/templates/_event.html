@@ -1,0 +1,9 @@
+<table class="table table-hover">
+    {% if event.event_type == 'Create printer' %}
+        <td>
+            {{ moment(event.creation_timestamp).format('LL') }}
+            <br>
+            {{ 'Added new printer, {}.'.format(event.printer.name)}}
+        </td>
+    {% endif %}
+</table>

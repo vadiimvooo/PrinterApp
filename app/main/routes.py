@@ -18,7 +18,12 @@ def index():
 @bp.route('/activity_feed', methods=['GET', 'POST'])
 @login_required
 def activity_feed():
-    return render_template('activity_feed.html')
+    events = Event.query.filter_by(
+        user_id='current_user.id'
+        ).order_by(
+            Event.creation_timestamp.desc()
+            ).all()
+    return render_template('activity_feed.html', events=events)
 
 
 @bp.route('/add_printer', methods=['GET', 'POST'])
