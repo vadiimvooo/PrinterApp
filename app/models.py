@@ -6,8 +6,9 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from app import db, login
 
 
-# class TimestampMixin(db.Model):
-# creation_timestamp = db.Column(db.DateTime, default=datetime.utcnow) #
+class TimestampMixin(object):
+    creation_timestamp = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_timestamp = db.Column(db.DateTime, onupdate=datetime.utcnow)
 
 
 class User(UserMixin, db.Model):
@@ -38,7 +39,7 @@ def load_user(id):
     return User.query.get(int(id))
 
 
-class Printer(db.Model):
+class Printer(TimestampMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), index=True, unique=True)
     brand = db.Column(db.String(64), index=True)
@@ -47,10 +48,6 @@ class Printer(db.Model):
     num_cartridges = db.Column(db.Integer)
     cart_on_hand = db.Column(db.Integer)
     product_url = db.Column(db.String(120), index=True)
-    creation_timestamp = db.Column(db.DateTime,
-                                   index=True,
-                                   default=datetime.utcnow
-                                   )
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     user = db.relationship('User', back_populates='printers')
     cartridges = db.relationship('Cartridge', back_populates='printer')
@@ -59,7 +56,7 @@ class Printer(db.Model):
         return '<Printer {}>'.format(self.name)
 
 
-class Cartridge(db.Model):
+class Cartridge(TimestampMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     color = db.Column(db.String(64), index=True)
     brand = db.Column(db.String(64), index=True)
