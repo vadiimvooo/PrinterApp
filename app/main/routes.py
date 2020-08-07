@@ -3,7 +3,7 @@ from flask_login import current_user, login_required
 
 from app import db
 from app.main import bp
-from app.main.forms import AddCartridge, RegisterPrinter, EditPrinter, EditCartridge
+from app.main.forms import AddCartridge, RegisterPrinter, EditPrinter, EditCartridge, Delete
 from app.models import User, Printer, Cartridge, Event
 
 
@@ -41,6 +41,7 @@ def add_printer():
         event = Event(event_type='create printer',
                       object_type='Printer',
                       printer_id=printer.id,
+                      printer_name=printer.name,
                       user=current_user)
         db.session.add(event)
         db.session.commit()
@@ -83,8 +84,10 @@ def add_cartridge(printer_id):
         event = Event(event_type='create cartridge',
                       object_type='cartridge',
                       cartridge_id=cartridge.id,
+                      cartridge_color=cartridge.color,
                       user=current_user,
-                      printer_id=cartridge.printer_id)
+                      printer_id=cartridge.printer_id,
+                      printer_name=cartridge.printer_name)
         db.session.add(event)
         db.session.commit()
         cartridge.printer.cart_on_hand += cartridge.quantity
@@ -95,8 +98,22 @@ def add_cartridge(printer_id):
 
 
 @bp.route('/printer/<printer_id>/delete', methods=['GET', 'POST'])
-def delete_printer():
-    pass
+def delete_printer(printer_id):
+    form = Delete()
+    printer = Printer.query.get(printer_id)
+    if form.validate_on_submit():
+        event = Event(event_type='delete printer',
+                      object_type='printer',
+                      printer_id=printer.id,
+                      printer_name=printer.name,
+                      user=current_user,)
+        db.session.add(event)
+        db.session.commit()
+        db.session.delete(printer)
+        db.session.commit()
+        flash('Printer deleted successfully.')
+        return redirect(url_for('main.user', username=current_user.username))
+    return render_template('delete_printer.html', printer_id=printer_id, form=form)
 
 
 @bp.route('/printer/<printer_id>/edit', methods=['GET', 'POST'])
@@ -112,10 +129,10 @@ def edit_printer(printer_id):
         printer.product_url = form.product_url.data
         db.session.commit()
         event = Event(event_type='edit printer',
-                      object_type = 'printer',
-                      cartridge_id = printer.id,
-                      user = current_user,
-                      printer_id=printer_id)
+                      object_type='printer',
+                      user=current_user,
+                      printer_id=printer_id,
+                      printer_name=printer.name)
         db.session.add(event)
         db.session.commit()
         flash("{} was successfully edited.".format(printer.name))
@@ -147,8 +164,10 @@ def edit_cartridge(printer_id, cartridge_id):
         event = Event(event_type='edit cartridge',
                       object_type='cartridge',
                       cartridge_id=cartridge.id,
+                      cartridge_color=cartridge.color,
                       user=current_user,
-                      printer_id=cartridge.printer_id)
+                      printer_id=cartridge.printer_id,
+                      printer_name=cartridge.printer.name)
         db.session.add(event)
         db.session.commit()
         flash("{} was successfully edited.".format(cartridge.color))

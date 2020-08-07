@@ -47,3 +47,7 @@ class EditCartridge(FlaskForm):
     product_url = StringField('Product URL')
     quantity = IntegerField('Quantity')
     submit = SubmitField('Submit')
+
+
+class Delete(FlaskForm):
+    submit = SubmitField('Delete')
