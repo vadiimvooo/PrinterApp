@@ -21,4 +21,14 @@
         <td>
             {{ cartridge.product_url }}
         </td>
+        <td>
+            <a href="{{ url_for('main.edit_cartridge', printer_id=cartridge.printer_id, cartridge_id=cartridge.id)}}">
+                <i class="fas fa-edit"></i>
+            </a>
+        </td>
+        <td>
+            <a href="{{ url_for('main.delete_cartridge', printer_id=cartridge.printer_id, cartridge_id=cartridge.id) }}">
+                <i class="fas fa-trash-alt"></i>
+            </a>
+        </td>
     </tr>

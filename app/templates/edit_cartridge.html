@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block app_content %}
+    <div class="row">
+        <div class="offset-md-4 col-md-4 mt-4">
+            <h1>Edit Cartridge</h1>
+            <br>
+            {{ wtf.quick_form(form) }}
+            <br>
+            <p>*Required Field</p>
+        </div>
+    </div>
+{% endblock %}

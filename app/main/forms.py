@@ -4,10 +4,10 @@ from wtforms.validators import DataRequired
 
 
 class RegisterPrinter(FlaskForm):
-    name = StringField('Printer Name', validators=[DataRequired()])
-    brand = StringField('Brand', validators=[DataRequired()])
+    name = StringField('Printer Name *', validators=[DataRequired()])
+    brand = StringField('Brand *', validators=[DataRequired()])
     model = StringField('Model')
-    num_cartridges = IntegerField('Number of Cartridges',
+    num_cartridges = IntegerField('Number of Cartridges *',
                                   validators=[DataRequired()])
     vendor = StringField('Vendor')
     product_url = StringField('Product URL')
@@ -27,3 +27,27 @@ class AddCartridge(FlaskForm):
                                     "How many extra cartridges do you have?"
                                 })
     submit = SubmitField('Add Cartridge')
+
+
+class EditPrinter(FlaskForm):
+    name = StringField('Printer Name')
+    brand = StringField('Brand')
+    model = StringField('Model')
+    num_cartridges = StringField('Number of Cartridges')
+    vendor = StringField('Vendor')
+    product_url = StringField('Product URL')
+    submit = SubmitField('Submit')
+
+
+class EditCartridge(FlaskForm):
+    color = StringField('Color')
+    brand = StringField('Brand')
+    model = StringField('Model')
+    vendor = StringField('Vendor')
+    product_url = StringField('Product URL')
+    quantity = IntegerField('Quantity')
+    submit = SubmitField('Submit')
+
+
+class Delete(FlaskForm):
+    submit = SubmitField('Delete')
