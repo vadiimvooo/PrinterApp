@@ -87,7 +87,7 @@ def add_cartridge(printer_id):
                       cartridge_color=cartridge.color,
                       user=current_user,
                       printer_id=cartridge.printer_id,
-                      printer_name=cartridge.printer_name)
+                      printer_name=cartridge.printer.name)
         db.session.add(event)
         db.session.commit()
         cartridge.printer.cart_on_hand += cartridge.quantity
@@ -144,8 +144,24 @@ def edit_printer(printer_id):
 
 @bp.route('/printer/<printer_id>/cartridge/<cartridge_id>/delete',
           methods=['GET', 'POST'])
-def delete_cartridge():
-    pass
+def delete_cartridge(printer_id, cartridge_id):
+    form = Delete()
+    cartridge = Cartridge.query.get(cartridge_id)
+    if form.validate_on_submit():
+        event = Event(event_type='delete cartridge',
+                      object_type='cartridge',
+                      cartridge_id=cartridge.id,
+                      cartridge_color=cartridge.color,
+                      printer_id=cartridge.printer_id,
+                      printer_name=cartridge.printer.name,
+                      user=current_user,)
+        db.session.add(event)
+        db.session.commit()
+        db.session.delete(cartridge)
+        db.session.commit()
+        flash('Cartridge deleted successfully.')
+        return redirect(url_for('main.printer', printer_id=cartridge.printer_id))
+    return render_template('delete_cartridge.html', printer_id=printer_id, form=form)
 
 
 @bp.route('/printer/<printer_id>/cartridge/<cartridge_id>/edit',

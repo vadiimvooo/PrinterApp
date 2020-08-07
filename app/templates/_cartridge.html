@@ -27,6 +27,8 @@
             </a>
         </td>
         <td>
-            <i class="fas fa-trash-alt"></i>
+            <a href="{{ url_for('main.delete_cartridge', printer_id=cartridge.printer_id, cartridge_id=cartridge.id) }}">
+                <i class="fas fa-trash-alt"></i>
+            </a>
         </td>
     </tr>
