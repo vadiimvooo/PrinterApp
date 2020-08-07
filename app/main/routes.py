@@ -3,7 +3,7 @@ from flask_login import current_user, login_required
 
 from app import db
 from app.main import bp
-from app.main.forms import AddCartridge, RegisterPrinter
+from app.main.forms import AddCartridge, RegisterPrinter, EditPrinter, EditCartridge
 from app.models import User, Printer, Cartridge, Event
 
 
@@ -100,8 +100,22 @@ def delete_printer():
 
 
 @bp.route('/printer/<printer_id>/edit', methods=['GET', 'POST'])
-def edit_printer():
-    pass
+def edit_printer(printer_id):
+    printer = Printer.query.get(printer_id)
+    form = EditPrinter(obj=printer)
+    if form.validate_on_submit():
+        printer.name = form.name.data
+        printer.brand = form.brand.data
+        printer.model = form.model.data
+        printer.num_cartridges = form.num_cartridges.data
+        printer.vendor = form.vendor.data
+        printer.product_url = form.product_url.data
+        db.session.commit()
+        flash("{} was successfully edited.".format(printer.name))
+        return redirect(url_for('main.user', username=current_user.username))
+    return render_template('edit_printer.html',
+                           title='Edit Printer',
+                           form=form)
 
 
 @bp.route('/printer/<printer_id>/cartridge/<cartridge_id>/delete',

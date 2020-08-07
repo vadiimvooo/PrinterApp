@@ -9,7 +9,9 @@
                     <h5>{{ printer.name }}</h5>
                     <h6>Date Created:</h6>
                     <p>{{ moment(printer.creation_timestamp).format('LL')  }}</p>
-                    <button type="button" class="btn btn-primary">Edit Printer</button>
+                    <a href="{{ url_for('main.edit_printer', printer_id=printer.id)}}">
+                        <button type="button" class="btn btn-primary">Edit Printer</button>
+                    </a>
                 </div>
             </div>
         </div>

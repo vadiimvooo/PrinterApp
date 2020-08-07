@@ -21,7 +21,9 @@
             {{ printer.cart_on_hand }}
         </td>
         <td>
-            <i class="fas fa-edit"></i>
+            <a href="{{ url_for('main.edit_printer', printer_id=printer.id)}}">
+                <i class="fas fa-edit"></i>
+            </a>
         </td>
         <td>
             <i class="fas fa-trash-alt"></i>
