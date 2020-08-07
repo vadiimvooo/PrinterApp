@@ -4,9 +4,13 @@
         <td>
             <b>{{ moment(event.creation_timestamp).format('LL') }}</b>
             {% if event.event_type == "create printer" %}
-                <p>{{ 'Added new printer, {}.'.format(event.printer.name)}}</p>
+                <p>{{ 'Added new printer, {}.'.format(event.printer.name) }}</p>
             {% elif event.event_type == "create cartridge" %}
                 <p>{{ 'Added new cartridge, {}, to printer {}.'.format(event.cartridge.color, event.printer.name) }}</p>
+            {% elif event.event_type == 'edit printer' %}
+                <p>{{ 'Edited {}.'.format(event.printer.name) }}</p>
+            {% elif event.event_type == 'edit cartridge' %}
+                <p>{{'Edited {} cartridge on printer {}.'.format(event.cartridge.color, event.printer.name) }}</p>
             {% endif %}
         </td>
     </table>

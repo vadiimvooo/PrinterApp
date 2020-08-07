@@ -111,6 +111,13 @@ def edit_printer(printer_id):
         printer.vendor = form.vendor.data
         printer.product_url = form.product_url.data
         db.session.commit()
+        event = Event(event_type='edit printer',
+                      object_type = 'printer',
+                      cartridge_id = printer.id,
+                      user = current_user,
+                      printer_id=printer_id)
+        db.session.add(event)
+        db.session.commit()
         flash("{} was successfully edited.".format(printer.name))
         return redirect(url_for('main.user', username=current_user.username))
     return render_template('edit_printer.html',
@@ -136,6 +143,13 @@ def edit_cartridge(printer_id, cartridge_id):
         cartridge.vendor = form.vendor.data
         cartridge.product_url = form.product_url.data
         cartridge.quantity = form.quantity.data
+        db.session.commit()
+        event = Event(event_type='edit cartridge',
+                      object_type='cartridge',
+                      cartridge_id=cartridge.id,
+                      user=current_user,
+                      printer_id=cartridge.printer_id)
+        db.session.add(event)
         db.session.commit()
         flash("{} was successfully edited.".format(cartridge.color))
         return redirect(url_for('main.printer', printer_id=printer_id))
