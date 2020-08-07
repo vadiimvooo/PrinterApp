@@ -126,5 +126,19 @@ def delete_cartridge():
 
 @bp.route('/printer/<printer_id>/cartridge/<cartridge_id>/edit',
           methods=['GET', 'POST'])
-def edit_cartridge():
-    pass
+def edit_cartridge(printer_id, cartridge_id):
+    cartridge = Cartridge.query.get(cartridge_id)
+    form = EditCartridge(obj=cartridge)
+    if form.validate_on_submit():
+        cartridge.color = form.color.data
+        cartridge.brand = form.brand.data
+        cartridge.model = form.model.data
+        cartridge.vendor = form.vendor.data
+        cartridge.product_url = form.product_url.data
+        cartridge.quantity = form.quantity.data
+        db.session.commit()
+        flash("{} was successfully edited.".format(cartridge.color))
+        return redirect(url_for('main.printer', printer_id=printer_id))
+    return render_template('edit_cartridge.html',
+                           title='Edit Cartridge',
+                           form=form)
