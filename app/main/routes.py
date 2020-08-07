@@ -69,6 +69,7 @@ def printer(printer_id):
 def add_cartridge(printer_id):
     printer = Printer.query.filter_by(id=printer_id).first_or_404()
     if current_user != printer.user:
+        flash('You cannot add a cartridge to a printer you do not own.')
         return redirect(url_for('main.printer', printer_id=printer_id))
     form = AddCartridge()
     if form.validate_on_submit():
@@ -98,9 +99,13 @@ def add_cartridge(printer_id):
 
 
 @bp.route('/printer/<printer_id>/delete', methods=['GET', 'POST'])
+@login_required
 def delete_printer(printer_id):
     form = Delete()
     printer = Printer.query.get(printer_id)
+    if current_user != printer.user:
+        flash('You cannot delete a printer you do not own.')
+        return redirect(url_for('main.printer', printer_id=printer_id))
     if form.validate_on_submit():
         event = Event(event_type='delete printer',
                       object_type='printer',
@@ -117,9 +122,13 @@ def delete_printer(printer_id):
 
 
 @bp.route('/printer/<printer_id>/edit', methods=['GET', 'POST'])
+@login_required
 def edit_printer(printer_id):
     printer = Printer.query.get(printer_id)
     form = EditPrinter(obj=printer)
+    if current_user != printer.user:
+        flash('You cannot edit a printer you do not own.')
+        return redirect(url_for('main.printer', printer_id=printer_id))
     if form.validate_on_submit():
         printer.name = form.name.data
         printer.brand = form.brand.data
@@ -144,9 +153,14 @@ def edit_printer(printer_id):
 
 @bp.route('/printer/<printer_id>/cartridge/<cartridge_id>/delete',
           methods=['GET', 'POST'])
+@login_required
 def delete_cartridge(printer_id, cartridge_id):
     form = Delete()
     cartridge = Cartridge.query.get(cartridge_id)
+    printer = Printer.query.get(cartridge.printer_id)
+    if current_user != cartridge.printer.user:
+        flash('You cannot delete a cartridge you do not own.')
+        return redirect(url_for('main.printer', printer_id=printer_id))
     if form.validate_on_submit():
         event = Event(event_type='delete cartridge',
                       object_type='cartridge',
@@ -166,9 +180,14 @@ def delete_cartridge(printer_id, cartridge_id):
 
 @bp.route('/printer/<printer_id>/cartridge/<cartridge_id>/edit',
           methods=['GET', 'POST'])
+@login_required
 def edit_cartridge(printer_id, cartridge_id):
     cartridge = Cartridge.query.get(cartridge_id)
     form = EditCartridge(obj=cartridge)
+    printer = Printer.query.get(cartridge.printer_id)
+    if current_user != cartridge.printer.user:
+        flash('You cannot edit a cartridge you do not own.')
+        return redirect(url_for('main.printer', printer_id=printer_id))
     if form.validate_on_submit():
         cartridge.color = form.color.data
         cartridge.brand = form.brand.data
